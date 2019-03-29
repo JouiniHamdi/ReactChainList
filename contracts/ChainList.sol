@@ -1,11 +1,13 @@
 pragma solidity ^0.5.0;
 
-contract ChainList {
+import "./Ownable.sol";
+
+contract ChainList is Ownable {
   // custom types
   struct Article {
     uint id;
     address payable seller;
-    address payable buyer;
+    address buyer;
     string name;
     string description;
     uint256 price;
@@ -20,18 +22,25 @@ contract ChainList {
     uint indexed _id,
     address indexed _seller,
     string _name,
-    uint256 _price
+    uint256 _price,
+    string _description
   );
   event LogBuyArticle(
     uint indexed _id,
     address indexed _seller,
     address indexed _buyer,
     string _name,
-    uint256 _price
+    uint256 _price,
+    string _description
   );
 
+  // deactivate the contract
+  function kill() public onlyOwner {
+    selfdestruct(owner);
+  }
+
   // sell an article
-  function sellArticle(string  memory _name, string memory _description, uint256  _price) public {
+  function sellArticle(string memory _name, string memory _description, uint256 _price) public {
     // a new article
     articleCounter++;
 
@@ -45,7 +54,7 @@ contract ChainList {
       _price
     );
 
-    emit LogSellArticle(articleCounter, msg.sender, _name, _price);
+    emit LogSellArticle(articleCounter, msg.sender, _name, _price, _description);
   }
 
   // fetch the number of articles in the contract
@@ -103,6 +112,6 @@ contract ChainList {
     article.seller.transfer(msg.value);
 
     // trigger the event
-   emit  LogBuyArticle(_id, article.seller, article.buyer, article.name, article.price);
+    emit LogBuyArticle(_id, article.seller, article.buyer, article.name, article.price, article.description);
   }
 }

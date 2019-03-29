@@ -30,3 +30,35 @@
     transform: rotate(360deg);
   }
 }
+
+.product-list  {
+  border:1px solid #cbbfab;
+  list-style-type : none;
+  padding: 5px;
+  margin: 5px;
+}
+.product {
+   border: 1px solid #ccc;
+   margin: 5px;
+   padding: 5px;
+   text-align: left;
+}
+
+.button {
+  background-color: rgb(47, 154, 241); /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
